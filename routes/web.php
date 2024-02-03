@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +17,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('app');
+});
+
+Route::middleware(['guest'])->group(function(){
+    Route::view('/login', 'auth.login')->name('login');
+    Route::view('/register', 'auth.register');
+    Route::post('/login/validate', [LoginController::class, 'login']);
+    Route::post('/register/validate', [RegisterController::class, 'createUser']);
+});
+
+Route::middleware(['auth'])->group(function(){
+    Route::get('/dashboard', [DashboardController::class, 'index']);
 });

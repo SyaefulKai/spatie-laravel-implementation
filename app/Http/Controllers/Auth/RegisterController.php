@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-
+use App\Http\Controllers\Controller;
 
 class RegisterController extends Controller
 {
@@ -15,7 +15,6 @@ class RegisterController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:App\Models\User,email',
             'password' => 'required',
-            'role' => 'required',
         ]);        
 
         // Registering new user
