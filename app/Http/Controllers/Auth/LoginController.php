@@ -16,9 +16,11 @@ class LoginController extends Controller
 
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
+            // Save login activity
+            activity()->log(Auth::user()->name . ' logged in');
             return redirect('dashboard');
         } else {
-            dd("AAAAAA");
+            dd("Login failed");
         }
     }
 }
